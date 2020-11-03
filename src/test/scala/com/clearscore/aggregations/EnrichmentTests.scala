@@ -6,8 +6,8 @@ import org.scalatest.FlatSpec
 
 class EnrichmentTests extends FlatSpec with SparkSuite {
   "Enrichments" should "produce an Employment and Bank report for ALL users in the data store" in {
-    val reports = spark.read.json("c:/dev/IdeaProjects/clearscore_assessment/src/test/resources/bulk-reports/reports/*/*/*")
-    val accounts = spark.read.json("c:/dev/IdeaProjects/clearscore_assessment/src/test/resources/bulk-reports/accounts")
+    val reports = spark.read.json("./src/test/resources/bulk-reports/reports/*/*/*")
+    val accounts = spark.read.json("./src/test/resources/bulk-reports/accounts")
 
     val uniqueAccounts = accounts.select("uuid").distinct().count
 
