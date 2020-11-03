@@ -1,9 +1,16 @@
 package com.clearscore.runners
 
 import com.clearscore.aggregations.{CreditReport, EmploymentStatus, Enrichment}
-import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
 
+/**
+ * Main class to launch data ingestion for Question4
+ *
+ * @param "--source" location where the Account and Credit Report files are held
+ * @param "--target" location where to save the results of the analysis to.
+ * @param "--master" sets the spark.master property for the application
+ *
+ * */
 object Question4 {
   def main(args: Array[String]): Unit = {
     println(this.getClass.getName)

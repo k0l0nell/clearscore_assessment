@@ -4,6 +4,13 @@ import com.clearscore.aggregations.CreditReport
 import com.clearscore.aggregations.CreditReport.extractUserScores
 import org.apache.spark.sql.SparkSession
 
+/**
+ * Main class to launch data ingestion for Question1.
+ *
+ * @param "--source" location where the Account and Credit Report files are held
+ * @param "--target" location where to save the results of the analysis to.
+ * @param "--master" sets the spark.master property for the application
+ * */
 object Question1 {
   def main(args: Array[String]): Unit = {
     println(this.getClass.getCanonicalName)

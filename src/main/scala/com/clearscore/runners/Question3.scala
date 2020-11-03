@@ -4,6 +4,13 @@ import com.clearscore.aggregations.CreditReport._
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.col
 
+/**
+ * Main class to launch data ingestion for Question3
+ *
+ * @param "--source" location where the Account and Credit Report files are held
+ * @param "--target" location where to save the results of the analysis to.
+ * @param "--master" sets the spark.master property for the application
+ * */
 object Question3 {
   def main(args: Array[String]): Unit = {
     println(this.getClass.getName)
