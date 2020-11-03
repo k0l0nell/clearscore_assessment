@@ -1,4 +1,4 @@
-package com.clearscore.schemas
+package com.clearscore.schemas.data
 
 case class ReportRecord(
                          `account-id`: String,
