@@ -7,3 +7,5 @@ case class Delphi(
                    ScoreName: String,
                    Scorecard_Identifier: String
                  )
+
+case class UserScoreRecord(`user-uuid`: String, `pulled-timestamp`: String , delphi: Delphi)
