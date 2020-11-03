@@ -39,4 +39,5 @@ object EmploymentStatus {
       .select(Encoders.product[EmploymentStatusReport].schema.names.map(col):_*)
       .as[EmploymentStatusReport](Encoders.product[EmploymentStatusReport])
   }
+
 }

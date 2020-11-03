@@ -5,7 +5,6 @@ version := "0.1"
 scalaVersion := "2.11.11"
 
 //scalatest
-coverageEnabled := true
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
 // https://mvnrepository.com/artifact/org.apache.spark/spark-sql

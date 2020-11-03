@@ -1,14 +1,14 @@
 package com.clearscore.aggregations
 
 import com.clearscore.SparkSuite
-import com.clearscore.aggregations.CreditScore.{countByCreditScoreBin, extractUserScores, showLatestReportOnly}
+import com.clearscore.aggregations.CreditReport.{countByCreditScoreBin, extractUserScores, showLatestReportOnly}
 import com.clearscore.schemas.data._
 import com.clearscore.schemas.reports.AverageCreditScoreReport
 import org.apache.spark.sql.{Dataset, Row}
 import org.apache.spark.sql.functions.{col, count, sum}
 import org.scalatest.FlatSpec
 
-class CreditScoreTests extends FlatSpec with SparkSuite {
+class CreditReportTests extends FlatSpec with SparkSuite {
 
   import spark.implicits._
 
@@ -25,7 +25,7 @@ class CreditScoreTests extends FlatSpec with SparkSuite {
 
 
   "CreditScore" should s"average to $sampleAverage on sample data" in {
-    val average:Dataset[AverageCreditScoreReport] = creditScores.toDS().transform(CreditScore.average)
+    val average:Dataset[AverageCreditScoreReport] = creditScores.toDS().transform(CreditReport.averageCreditScore)
 
     assert(average.collect().headOption.getOrElse(noReportFound).average_credit_score === sampleAverage)
   }
@@ -35,18 +35,18 @@ class CreditScoreTests extends FlatSpec with SparkSuite {
   private val assessmentAverage = 532.1726618705036
 
   it should s"average to $assessmentAverage for the assessment data " in {
-    val average = userScores.transform(CreditScore.average)
+    val average = userScores.transform(CreditReport.averageCreditScore)
 
     assert(average.collect().headOption.getOrElse(noReportFound).average_credit_score === assessmentAverage)
   }
 
-  it should s"bin into ${CreditScore.binRange.size} bins" in {
+  it should s"bin into ${CreditReport.binRange.size} bins" in {
     val binnedScore = userScores
       .transform(countByCreditScoreBin(col("user-uuid")))
 
     binnedScore.show
 
-    assert(binnedScore.count === CreditScore.binRange.size)
+    assert(binnedScore.count === CreditReport.binRange.size)
   }
 
   it should "be able to only show the latest report for a user" in {

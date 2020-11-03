@@ -6,5 +6,5 @@ case class EnrichedBankDataReport(
                                    user_uuid: String,
                                    employment_status: String,
                                    bank_name: String,
-                                   number_of_active_bank_accounts: Integer,
-                                   total_outstanding_balance: BigDecimal)
+                                   number_of_active_bank_accounts: String,
+                                   total_outstanding_balance: String)
