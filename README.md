@@ -30,7 +30,7 @@ The data structures for this project can be generated locally (via `sbt run`) or
 #### Local Mode
 To run this application in local mode just run:
 ```shell script
-sbt run
+sbt run --master local[*]
 ```
 
 The application will then ask you what data structures you want to generate.
@@ -52,7 +52,7 @@ Simply enter the number of the desired pipeline and press return.
 To modify this behaviour you can use `--source` and `--target` as illustrated below 
 
 ```shell script
-sbt run --target ./output --source ~/data/bulk-reports
+sbt run --master local[*] --target ./output --source ~/data/bulk-reports
 ```
 
 #### Cluster Deployment

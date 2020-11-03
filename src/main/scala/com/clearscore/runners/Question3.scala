@@ -10,13 +10,18 @@ object Question3 {
 
     var source_location: Option[String] = None
     var target_location: Option[String] = None
+    var master: Option[String] = None
 
     args.sliding(2, 2).toList.collect {
       case Array("--source", source: String) => source_location = Some(source)
       case Array("--target", target: String) => target_location = Some(target)
+      case Array("--master", value: String) => master = Some(value)
     }
 
-    val spark = SparkSession.builder().appName(s"${this.getClass.getCanonicalName} Pipe").config("spark.master","local[*]").getOrCreate()
+    val spark = master match {
+      case Some(setting) => SparkSession.builder().master(setting).getOrCreate()
+      case None => SparkSession.builder().getOrCreate()
+    }
 
     spark.read
       .json(s"${source_location.getOrElse(Defaults.source_location)}/reports/*/*/*")
