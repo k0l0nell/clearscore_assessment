@@ -1,7 +1,7 @@
 package com.clearscore.aggregations
 
-import com.clearscore.schemas.{AverageCreditScoreReport, Delphi}
-import org.apache.arrow.vector.types.pojo.ArrowType.Timestamp
+import com.clearscore.schemas.data.Delphi
+import com.clearscore.schemas.reports.AverageCreditScoreReport
 import org.apache.spark.sql.functions.{avg, col, explode, lit}
 import org.apache.spark.sql.types.DoubleType
 import org.apache.spark.sql.{DataFrame, Dataset, Encoders}
@@ -17,7 +17,7 @@ object CreditScore {
   /** Calculates the average
    *
    * @param scoreBlocks `Delphi` scoreblocks
-   * @return `AverageCreditScoreReport` containing the average
+   * @return `AverageCreditScoreReport` containing the average credit score for this run
    * */
   def average(scoreBlocks: Dataset[Delphi]): Dataset[AverageCreditScoreReport] = {
     scoreBlocks
@@ -30,7 +30,7 @@ object CreditScore {
   /** Creates a Dataset of scoreBlocks for a set of CreditReports
    *
    * @param dataFrame the collection of scoreBlock
-   * @return a Dataset contains `Delphi` scoreblocks
+   * @return a Dataset containing `Delphi` scoreblocks
    * */
   def extractScoreBlocks(dataFrame: DataFrame): Dataset[Delphi] = {
     dataFrame

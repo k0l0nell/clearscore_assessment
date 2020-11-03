@@ -2,7 +2,8 @@ package com.clearscore.aggregations
 
 import com.clearscore.SparkSuite
 import com.clearscore.aggregations.CreditScore.extractScoreBlocks
-import com.clearscore.schemas.{AverageCreditScoreReport, Delphi}
+import com.clearscore.schemas.data.Delphi
+import com.clearscore.schemas.reports.AverageCreditScoreReport
 import org.apache.spark.sql.Dataset
 import org.scalatest.FlatSpec
 
