@@ -7,11 +7,16 @@ import org.apache.spark.sql.functions.col
 /**
  * Main class to launch data ingestion for Question3
  *
- * @param "--source" location where the Account and Credit Report files are held
- * @param "--target" location where to save the results of the analysis to.
- * @param "--master" sets the spark.master property for the application
  * */
 object Question3 {
+  /**
+   * @param args program arguments
+   *            {{{
+   *             "--source" location where the Account and Credit Report files are held
+   *             "--target" location where to save the results of the analysis to.
+   *             "--master" sets the spark.master property for the application
+   *             }}}
+   * */
   def main(args: Array[String]): Unit = {
     println(this.getClass.getName)
 
