@@ -1,8 +1,11 @@
 package com.clearscore.schemas.reports
 
+import java.sql.Timestamp
+
 /** data structure for Question 4
  * */
 case class EnrichedBankDataReport(
+                                   batch_timestamp: Timestamp,
                                    user_uuid: String,
                                    employment_status: String,
                                    bank_name: String,

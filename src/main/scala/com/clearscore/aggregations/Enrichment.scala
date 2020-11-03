@@ -36,6 +36,7 @@ object Enrichment {
         bankData("numActiveBankAcc").as("number_of_active_bank_accounts"),
         bankData("totOutstandingBalance").as("total_outstanding_balance")
       )
+      .withColumn("batch_timestamp",lit(java.sql.Timestamp.from(java.time.Instant.now)))
       .select(Encoders.product[EnrichedBankDataReport].schema.names.map(col):_*)
       .na.fill("Unknown",Seq("employment_status","bank_name"))
       .as[EnrichedBankDataReport](Encoders.product[EnrichedBankDataReport])
