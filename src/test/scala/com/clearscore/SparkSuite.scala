@@ -6,5 +6,5 @@ trait SparkSuite {
   //Remember to set HADOOP_HOME on Windows
 
   val spark = SparkSession.builder().config("spark.master","local[4]").getOrCreate()
-
+  spark.sparkContext.setLogLevel("ERROR")
 }
