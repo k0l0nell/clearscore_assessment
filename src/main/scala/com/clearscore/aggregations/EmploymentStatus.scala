@@ -12,6 +12,7 @@ import org.apache.spark.sql.{DataFrame, Dataset, Encoders}
  *
  * */
 object EmploymentStatus {
+
   /** Creates a Dataset of AccountUsers for a set of Accounts
    *
    * @param dataFrame the collection of Accounts
@@ -25,16 +26,17 @@ object EmploymentStatus {
 
   /** Creates a Dataset of AccountUsers for a set of Accounts
    *
-   * @param dataSet the collection of `AccountUserRecords`
+   * @param dataset the collection of `AccountUserRecords`
    * @return `EmploymentStatusReport` containing the breakdown of user employment status for this run
    * */
-  def byUser(dataSet: Dataset[AccountUserRecord]): Dataset[EmploymentStatusReport] = {
-    dataSet
+  def byUser(dataset: Dataset[AccountUserRecord]): Dataset[EmploymentStatusReport] = {
+    dataset
       .groupBy(col("user.employmentStatus"))
-      .agg(countDistinct("uuid").as("user_count"))
+        .agg(countDistinct("uuid").as("user_count"))
       .withColumn("batch_timestamp",lit(java.sql.Timestamp.from(java.time.Instant.now)))
       .withColumnRenamed("employmentStatus","employment_status")
-      .na.fill("Unknown", Seq("employment_status"))
+        .na.fill("Unknown", Seq("employment_status"))
+      .select(Encoders.product[EmploymentStatusReport].schema.names.map(col):_*)
       .as[EmploymentStatusReport](Encoders.product[EmploymentStatusReport])
   }
 }

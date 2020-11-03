@@ -61,11 +61,11 @@ object CreditScore {
    *  @param column column to aggregate (count)
    *  @return the report by credit score bin
    * */
-  def countByCreditScoreBin(column: Column)(dataFrame: Dataset[UserScoreRecord]): Dataset[BinnedCreditScoreReport] = {
-    val bins = dataFrame.sparkSession.createDataset(binRange.toList)(Encoders.tuple(Encoders.STRING,Encoders.scalaInt,Encoders.scalaInt)).toDF("bin_name","min","max")
+  def countByCreditScoreBin(column: Column)(dataset: Dataset[UserScoreRecord]): Dataset[BinnedCreditScoreReport] = {
+    val bins = dataset.sparkSession.createDataset(binRange.toList)(Encoders.tuple(Encoders.STRING,Encoders.scalaInt,Encoders.scalaInt)).toDF("bin_name","min","max")
     val aggregate = count(column)
 
-    bins.join(dataFrame, dataFrame("delphi.Score") >= bins("min") and dataFrame("delphi.Score") <= bins("max") ,"left_outer")
+    bins.join(dataset, dataset("delphi.Score") >= bins("min") and dataset("delphi.Score") <= bins("max") ,"left_outer")
       .groupBy("bin_name")
       .agg(aggregate.as("measure"))
       .withColumn("batch_timestamp",lit(java.sql.Timestamp.from(java.time.Instant.now)))
